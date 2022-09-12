@@ -1,26 +1,35 @@
-from itertools import cycle
-import argparse
-def cli_parser():
-    parser = argparse.ArgumentParser(description='Task1')
-    parser.add_argument('n', help='n')
-    parser.add_argument('m', help='m')
-    return parser.parse_args()
-def task1(n, m):
-    lol = (y for y in cycle([x for x in range(1, n + 1)]))
-    count = 1
-    rout = '1'
-    lol.__next__()
-    while True:
-        count += 1
-        num = lol.__next__()
-        if num == 1 and count % m == 0:
-            return rout
-        elif count == m and num != 1:
-            count = 1
-            rout += str(num)
-def main():
-    namespace = cli_parser()
-    result = task1(int(namespace.n), int(namespace.m))
-    print(result)
-if __name__ == '__main__':
-    main()
+import sys
+
+class CircularArrayAdvance:
+  def steps(self):
+
+    def createList(n):
+        l = []
+        for i in range(n):
+            l.append(i + 1)
+        return(l)
+
+    def advance(i, m):
+        new_i = (i + m - 1) % n
+        return (new_i, nums[i])
+
+    n = 5
+    m = 4
+
+    nums = createList(n)
+
+    is_first_iteration = True
+    i = None
+    s = ""
+
+    while i != 0:
+        if is_first_iteration:
+            enumerated_val = advance(0, m)
+            is_first_iteration = False
+        else:
+            enumerated_val = advance(i, m)
+        i = enumerated_val[0]
+        s += str(enumerated_val[1])
+    return s
+
+print(CircularArrayAdvance().steps())
